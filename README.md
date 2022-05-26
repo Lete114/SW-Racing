@@ -8,6 +8,8 @@
 
 ## 使用 Service Workers
 
+> Hexo 插件: [hexo-sw-racing](https://github.com/Lete114/SW-Racing/tree/hexo)
+
 > Service Workers 在本文统一叫 sw
 
 关于 **Service Workers** 是什么？自行查看 [https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers](https://developer.mozilla.org/zh-CN/docs/Web/API/Service_Worker_API/Using_Service_Workers)
