@@ -1,0 +1,25 @@
+{
+  "name": "hexo-sw-racing",
+  "version": "1.0.0-beta.0",
+  "description": "使用Service Workers拯救你网站上的jsdelivr CDN",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "sw-racing",
+    "jsdelivr",
+    "jsdelivr-cdn",
+    "hexo"
+  ],
+  "author": "Lete乐特",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lete114/SW-Racing.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Lete114/SW-Racing/issues"
+  },
+  "homepage": "https://github.com/Lete114/SW-Racing#readme"
+}
