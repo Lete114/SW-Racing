@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Service Workers jsdelivr</title>
+  </head>
+
+  <body style="display: flex; align-items: center; justify-content: center; flex-direction: column">
+    <div class="button">
+      <button onclick="send()">发送请求</button>
+      <button onclick="registerSW()">注册SW</button>
+      <button onclick="unregisterSW()">注销SW</button>
+    </div>
+    <div style="text-align: center; margin: 10px 0">
+      可先点击<strong>注销SW</strong>后发送测试请求<br />
+      再点击<strong>注册SW</strong>后发送请求进行对比有和没有SW的区别
+    </div>
+    <table border="1" style="margin: 10px 0">
+      <tbody>
+        <tr>
+          <th>请求类型</th>
+          <td>请求结果</td>
+        </tr>
+      </tbody>
+    </table>
+    <script>
+      const urls = [
+        'https://cdn.jsdelivr.net/npm/discuss@0.3.1/package.json',
+        'https://cdn.jsdelivr.net/gh/discussjs/Discuss@0.3.1/package.json',
+        'https://cdn.jsdelivr.net/combine/gh/discussjs/Discuss@0.3.1/package.json'
+      ]
+      const tbody = document.querySelector('tbody')
+      function createDOM(path, text, error) {
+        const tr = document.createElement('tr')
+        const th = document.createElement('th')
+        const td = document.createElement('td')
+        th.textContent = path
+        td.textContent = text
+        tr.appendChild(th)
+        tr.appendChild(td)
+        th.style.padding = '0 10px'
+        td.style.padding = '0 10px'
+        tr.style.textAlign = 'left'
+        if (localStorage.getItem('SW-Racing')) tr.style.background = '#14C38E'
+        if (error) tr.style.color = 'red'
+        tbody.appendChild(tr)
+      }
+      function send() {
+        for (const url of urls) {
+          const path = new URL(url).pathname.split('/')[1]
+          fetch(url)
+            .then((res) => res.json())
+            .then((pkg) => createDOM(path, pkg.repository.url))
+            .catch((e) => createDOM(path, e, true))
+        }
+      }
+      function registerSW() {
+        // 判断当前浏览器是否支持 sw 如果不支持则直接退出这个函数(当什么也没有发生)
+        if ('serviceWorker' in navigator) {
+          const href = location.href.replace(/\/?$/, '/')
+          navigator.serviceWorker.register(href + 'sw.js').then((res) => {
+            localStorage.setItem('SW-Racing', true)
+            alert('注册成功')
+          })
+        } else {
+          alert('你的浏览器不支持 Service Worker')
+        }
+      }
+      function unregisterSW() {
+        navigator.serviceWorker
+          .getRegistrations()
+          .then((r) => {
+            for (let i of r) i.unregister()
+            localStorage.removeItem('SW-Racing')
+            alert('注销成功')
+          })
+          .catch(() => alert('注销失败'))
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,20 @@
+{
+  "name": "SW-Racing",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "sirv ./ --no-clear --port 6870",
+    "lint": "npx eslint . && npx prettier --check .",
+    "lint:fix": "npx eslint --fix . && npx prettier --check --write ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lete114/SW-Racing.git"
+  },
+  "author": "Lete乐特",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^8.16.0",
+    "prettier": "^2.6.2",
+    "sirv-cli": "^2.0.2"
+  }
+}
