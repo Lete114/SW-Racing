@@ -22,18 +22,33 @@ sw 可以拦截网站的所有请求，捕获并篡改请求，使用也是有�
 
 在你的网站插入如下 js，并将仓库中`sw.js`文件放到你网站的根目录
 
-```js
-// 判断当前浏览器是否支持 sw 如果不支持则直接退出这个函数(当什么也没有发生)
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker
-    .register('sw.js')
-    .then((res) => {
-      console.log('注册成功')
-    })
-    .catch(() => {
-      console.log('注册失败')
-    })
-}
+将安装代码放置在`<head>`之后
+
+```html
+<script>
+  ;(async function () {
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+        .register('/sw.js')
+        .then((result) => {
+          // 判断是否安装了sw
+          if (!localStorage.getItem('installSW')) {
+            localStorage.setItem('installSW', true)
+            // 这里就不用清理setInterval了，因为页面刷新后就没有了
+            setInterval(() => {
+              // 判断sw安装后，是否处于激活状态，激活后刷新页面
+              if (result && result.active && result.active.state === 'activated') {
+                location.reload() // sw注册后，会在下次访问时才工作，所以这里调用reload()刷新一次页面
+              }
+            }, 100)
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+    }
+  })()
+</script>
 ```
 
 ## 注销 sw
