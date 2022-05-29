@@ -26,7 +26,7 @@ sw 可以拦截网站的所有请求，捕获并篡改请求，使用也是有�
 
 ```html
 <script>
-  ;(async function () {
+  ;(function () {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js')
