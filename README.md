@@ -16,6 +16,8 @@ npm install hexo-sw-racing --save
 
 
 ```yml
+# SW-Racing
+# https://github.com/Lete114/SW-Racing
 SWRacing:
   enable: true              # 是否使用sw
   register: true            # true: 注册sw | false: 注销
