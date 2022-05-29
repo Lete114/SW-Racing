@@ -1,7 +1,7 @@
 const defaultOptions = {
   enable: true,
   register: true,
-  file: 'sw.js',
+  file: '/sw.js',
   location: 'head_begin',
   page: 'default'
 }
