@@ -1,6 +1,6 @@
 {
   "name": "hexo-sw-racing",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "使用Service Workers拯救你网站上的jsdelivr CDN",
   "main": "index.js",
   "scripts": {

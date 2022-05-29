@@ -12,7 +12,7 @@ hexo.extend.filter.register('after_generate', function () {
   if (!enable) return
 
   const registerSW = `
-  ;(async function () {
+  ;(function () {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('${file}')
