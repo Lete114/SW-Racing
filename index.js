@@ -38,13 +38,15 @@ hexo.extend.filter.register('after_generate', function () {
   `
 
   const unregisterSW = `
-  navigator.serviceWorker
-  .getRegistrations()
-  .then((r) => {
-    for (let i of r) i.unregister()
-    console.log('注销sw成功')
-  })
-  .catch(() => console.log('注销sw失败'))`
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker
+      .getRegistrations()
+      .then((r) => {
+        for (let i of r) i.unregister()
+        console.log('注销成功')
+      })
+      .catch(() => console.log('注销失败'))
+  }`
 
   const script = register ? registerSW : unregisterSW
 
