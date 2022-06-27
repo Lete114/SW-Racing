@@ -35,9 +35,10 @@ sw 可以拦截网站的所有请求，捕获并篡改请求，使用也是有�
           if (!localStorage.getItem('installSW')) {
             localStorage.setItem('installSW', true)
             // 这里就不用清理setInterval了，因为页面刷新后就没有了
-            setInterval(() => {
+            const timer = setInterval(() => {
               // 判断sw安装后，是否处于激活状态，激活后刷新页面
               if (result && result.active && result.active.state === 'activated') {
+                clearInterval(timer)
                 location.reload() // sw注册后，会在下次访问时才工作，所以这里调用reload()刷新一次页面
               }
             }, 100)
@@ -60,13 +61,15 @@ sw 可以拦截网站的所有请求，捕获并篡改请求，使用也是有�
 > 请保留注销 sw 代码在你的网站至少 3 个月或者更久的时间(代码体积小，且是异步代码，所以不会对你网站的渲染照成影响)
 
 ```js
-navigator.serviceWorker
-  .getRegistrations()
-  .then((r) => {
-    for (let i of r) i.unregister()
-    console.log('注销成功')
-  })
-  .catch(() => console.log('注销失败'))
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .getRegistrations()
+    .then((r) => {
+      for (let i of r) i.unregister()
+      console.log('注销成功')
+    })
+    .catch(() => console.log('注销失败'))
+}
 ```
 
 ## 效果图
