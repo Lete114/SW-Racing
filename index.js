@@ -15,7 +15,7 @@ hexo.extend.filter.register('after_generate', function () {
   ;(function () {
     if (navigator.serviceWorker) {
       navigator.serviceWorker
-        .register('${file}'')
+        .register('${file}')
         .then((result) => {
           // 判断是否安装了sw
           if (localStorage.getItem('installSW')) return
